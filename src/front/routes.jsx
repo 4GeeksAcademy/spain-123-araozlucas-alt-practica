@@ -5,10 +5,10 @@ import {
     createRoutesFromElements,
     Route,
 } from "react-router-dom";
-import { Layout } from "./pages/Layout";
-import { Home } from "./pages/Home";
-import { Single } from "./pages/Single";
-import { Demo } from "./pages/Demo";
+import { Layout } from "./pages/Layout.jsx";
+import { Home } from "./pages/Home.jsx";
+import { Single } from "./pages/Single.jsx";
+import { Demo } from "./pages/Demo.jsx";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
