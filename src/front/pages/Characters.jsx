@@ -43,13 +43,15 @@ export const Characters = () => {
             <div className="card shadow-sm"> 
               <svg aria-label="Placeholder: Thumbnail" className="bd-placeholder-img card-img-top" height="225" preserveAspectRatio="xMidYMid slice" role="img" width="100%" xmlns="http://www.w3.org/2000/svg"><title>Placeholder</title><rect width="100%" height="100%" fill="#2fa2aaff"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Characters</text></svg> 
               <div className="card-body"> 
-                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> 
+                <h2 className="card-text">Luke Skywalker</h2>
+                <p className="card-text">Gender:</p>
+                <p className="card-text">Hair Color:</p> 
+                <p className="card-text">Eye Color:</p> 
                 <div className="d-flex justify-content-between align-items-center"> 
                   <div className="btn-group"> 
-                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button> 
-                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  
                   </div> 
-                  <small className="text-body-secondary">9 mins</small> 
+                  <button type="button" className="btn btn-sm btn-outline-warning"><i class="fa-regular fa-heart"></i></button> 
                 </div> 
               </div> 
             </div>

@@ -13,9 +13,6 @@ export const Navbar = () => {
 					<Link to="/contactlist">
 						<span className="d-inline-block align-text-center me-2 text-light">Users</span>
 					</Link>
-					<Link to="/contactadd">
-						<span className="d-inline-block align-text-center me-2 text-light">New user</span>
-					</Link>
 				</div>
 				<div className="ml-auto">
 					<Link to="/characters">
