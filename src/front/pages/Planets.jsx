@@ -57,8 +57,8 @@ export const Planets = () => {
         </div>
       
       
-          <Link to="/">
-          <p>or get back to contacts</p>
+          <Link to="/" className="text-light">
+          <p>or get back to homepage</p>
           </Link>
         
       </div>

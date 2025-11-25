@@ -7,31 +7,60 @@ export const Characters = () => {
   const { store, dispatch } = useGlobalReducer()
 
   return (
-    <div className="container mt-3">
-      <div className="col-10 col-sm-8 col-md-6 col-lg-6 m-auto">
-        <form>
-          <div className="mb-3">
-            <label for="exampleInputName" className="form-label">Full name</label>
-            <input type="text" className="form-control" id="exampleInputName" placeholder="Full name"/>
+     <div className="container mt-3 bg-black">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div className="col">
+            <div className="card shadow-sm"> 
+              <svg aria-label="Placeholder: Thumbnail" className="bd-placeholder-img card-img-top" height="225" preserveAspectRatio="xMidYMid slice" role="img" width="100%" xmlns="http://www.w3.org/2000/svg"><title>Placeholder</title><rect width="100%" height="100%" fill="#2fa2aaff"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Characters</text></svg> 
+              <div className="card-body"> 
+                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> 
+                <div className="d-flex justify-content-between align-items-center"> 
+                  <div className="btn-group"> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button> 
+                  </div> 
+                  <small className="text-body-secondary">9 mins</small> 
+                </div> 
+              </div> 
+            </div>
           </div>
-          <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Email</label>
-            <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+          <div className="col">
+            <div className="card shadow-sm"> 
+              <svg aria-label="Placeholder: Thumbnail" className="bd-placeholder-img card-img-top" height="225" preserveAspectRatio="xMidYMid slice" role="img" width="100%" xmlns="http://www.w3.org/2000/svg"><title>Placeholder</title><rect width="100%" height="100%" fill="#2fa2aaff"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Characters</text></svg> 
+              <div className="card-body"> 
+                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> 
+                <div className="d-flex justify-content-between align-items-center"> 
+                  <div className="btn-group"> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button> 
+                  </div> 
+                  <small className="text-body-secondary">9 mins</small> 
+                </div> 
+              </div> 
+            </div>
           </div>
-          <div className="mb-3">
-            <label for="exampleInputPhone" className="form-label">Phone</label>
-            <input type="text" className="form-control" id="exampleInputPhone" placeholder="Enter phone"/>
+          <div className="col">
+            <div className="card shadow-sm"> 
+              <svg aria-label="Placeholder: Thumbnail" className="bd-placeholder-img card-img-top" height="225" preserveAspectRatio="xMidYMid slice" role="img" width="100%" xmlns="http://www.w3.org/2000/svg"><title>Placeholder</title><rect width="100%" height="100%" fill="#2fa2aaff"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Characters</text></svg> 
+              <div className="card-body"> 
+                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> 
+                <div className="d-flex justify-content-between align-items-center"> 
+                  <div className="btn-group"> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button> 
+                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button> 
+                  </div> 
+                  <small className="text-body-secondary">9 mins</small> 
+                </div> 
+              </div> 
+            </div>
           </div>
-          <div className="mb-3">
-            <label for="exampleInputAddress" className="form-label">Address</label>
-            <input type="text" className="form-control" id="exampleInputAddress" placeholder="Enter address"/>
-          </div>
-          <button type="submit" className="form-control btn btn-primary mt-3">save</button>
-          <Link to="/">
-          <p>or get back to contacts</p>
+        </div>
+      
+      
+          <Link to="/" className="text-light">
+          <p>or get back to homepage</p>
           </Link>
-        </form>
+        
       </div>
-    </div>
   );
 };
