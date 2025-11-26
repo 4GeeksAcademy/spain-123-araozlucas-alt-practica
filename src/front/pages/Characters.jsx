@@ -47,11 +47,29 @@ export const Characters = () => {
             </div>
           ))}
         </div>
+
+        <div className="d-flex justify-content-between mt-3">
+          <div>
+            <Link to="/" className="text-light">
+            <p>or get back to homepage</p>
+            </Link>
+          </div>
+          <div>
+            <nav aria-label="...">
+              <ul className="pagination">
+                <li className="page-item disabled">
+                  <Link className="page-link">Previous</Link>
+                </li>
+                <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
+                <li className="page-item"><Link className="page-link bg-dark text-secondary" to="#" aria-current="page">2</Link></li>
+                <li className="page-item"><Link className="page-link bg-dark text-secondary" to="#">3</Link></li>
+                <li className="page-item"><Link className="page-link bg-dark text-secondary" to="#">Next</Link></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       
       
-          <Link to="/" className="text-light">
-          <p>or get back to homepage</p>
-          </Link>
         
       </div>
   );
