@@ -8,7 +8,9 @@ export const Contactadd = () => {
 
   return (
     <div className="container mt-3">
-      <div className="col-10 col-sm-8 col-md-6 col-lg-6 m-auto text-light">
+      
+      <div className="col-10 col-sm-8 col-md-6 col-lg-6 m-auto text-secondary">
+        <h1 className="text-start mt-3 text-light display-6">Add contact</h1>
         <form>
           <div className="mb-3">
             <label for="exampleInputName" className="form-label">Full name</label>

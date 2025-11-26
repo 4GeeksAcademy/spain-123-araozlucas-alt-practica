@@ -1,3 +1,5 @@
+import { Characters } from "./pages/Characters";
+
 export const initialStore=()=>{
   return{
     message: null,
@@ -12,9 +14,11 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
-  }
-}
+    ],
+    characters: [],
+    planets: [],
+  };
+};
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
@@ -32,6 +36,19 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+    
+    case 'setCharacters':
+      return {
+        ...store,
+        characters: action.payload
+      };
+    
+    case 'setPlanets':
+      return {
+        ...store,
+        planets: action.payload
+      };
+
     default:
       throw Error('Unknown action.');
   }    
