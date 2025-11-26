@@ -5,15 +5,16 @@ import {
     createRoutesFromElements,
     Route,
 } from "react-router-dom";
-import { Layout } from "./pages/Layout";
-import { Home } from "./pages/Home";
-import { Single } from "./pages/Single";
-import { Demo } from "./pages/Demo";
-import { Contactadd } from "./pages/Contactadd";
-import { Planets } from "./pages/Planets";
-import { Characters } from "./pages/Characters";
-import { Favorites } from "./pages/Favorites";
-import { Contactlist } from "./pages/Contactlist";
+import { Layout } from "./pages/Layout.jsx";
+import { Home } from "./pages/Home.jsx";
+import { Single } from "./pages/Single.jsx";
+import { Demo } from "./pages/Demo.jsx";
+import { Contactadd } from "./pages/Contactadd.jsx";
+import { Contactedit } from "./pages/Contactedit.jsx";
+import { Planets } from "./pages/Planets.jsx";
+import { Characters } from "./pages/Characters.jsx";
+import { Favorites } from "./pages/Favorites.jsx";
+import { Contactlist } from "./pages/Contactlist.jsx";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
         <Route path="/contactadd" element={<Contactadd />} />
+        <Route path="/contactedit" element={<Contactedit />} />
         <Route path="/planets" element={<Planets />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/favorites" element={<Favorites />} />

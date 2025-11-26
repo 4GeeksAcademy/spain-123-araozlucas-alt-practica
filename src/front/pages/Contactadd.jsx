@@ -30,7 +30,7 @@ export const Contactadd = () => {
           </div>
           <button type="submit" className="form-control btn btn-warning mt-3">save</button>
           <Link to="/" className="text-light">
-          <p>or get back to contacts</p>
+          <p>or get back to homepage</p>
           </Link>
         </form>
       </div>

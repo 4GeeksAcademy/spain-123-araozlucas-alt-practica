@@ -2,13 +2,15 @@
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 
-export const Favorites = () => {
+export const Contactedit = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
   const { store, dispatch } = useGlobalReducer()
 
   return (
     <div className="container mt-3">
-      <div className="col-10 col-sm-8 col-md-6 col-lg-6 m-auto">
+      
+      <div className="col-10 col-sm-8 col-md-6 col-lg-6 m-auto text-secondary">
+        <h1 className="text-start mt-3 text-light display-6">Edit contact</h1>
         <form>
           <div className="mb-3">
             <label for="exampleInputName" className="form-label">Full name</label>
@@ -26,11 +28,19 @@ export const Favorites = () => {
             <label for="exampleInputAddress" className="form-label">Address</label>
             <input type="text" className="form-control" id="exampleInputAddress" placeholder="Enter address"/>
           </div>
-          <button type="submit" className="form-control btn btn-primary mt-3">save</button>
-          <Link to="/">
-          <p>or get back to homepage</p>
-          </Link>
         </form>
+          
+          <div className="d-flex justify-content-between">
+            <div>
+                <Link to="/" className="text-light">
+                <p>or get back to homepage</p>
+                </Link>
+            </div>
+            <div class="d-grid gap-2 d-md-flex">
+                <button class="btn btn-warning me-md-2" type="button">Save</button>
+                <button class="btn btn-secondary" type="button">Cancel</button>
+            </div>
+          </div>
       </div>
     </div>
   );
