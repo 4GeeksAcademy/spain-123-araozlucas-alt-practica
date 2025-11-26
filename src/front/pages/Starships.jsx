@@ -1,17 +1,14 @@
 // Import necessary components from react-router-dom and other parts of the application.
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 import { useEffect } from "react";
 
-export const Characters = () => {
+export const Starships = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
   const { store, dispatch } = useGlobalReducer()
-  const navigate = useNavigate();
 
-  const handleDetails = () => {}
-
-  const getCharacters = async() => {
-    const response = await fetch(`https://swapi.tech/api/people`);
+  const getStarships = async() => {
+    const response = await fetch(`https://swapi.tech/api/starships`);
     if (!response.ok) {
       console.log('Error', response.status, response.statusText);
       return
@@ -19,13 +16,13 @@ export const Characters = () => {
     const data = await response.json()
     console.log(data.results);
     dispatch({
-      type:"setCharacters",
+      type:"setStarships",
       payload: data.results
     });
   };
 
   useEffect (() => {
-    getCharacters()
+    getStarships()
   },[]);
 
 
@@ -33,13 +30,13 @@ export const Characters = () => {
   return (
      <div className="container mt-3 bg-black">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {store.characters && store.characters.slice(0,9).map((character,index) => (
+          {store.starships && store.starships.slice(0,9).map((starship,index) => (
             <div className="col">
               <div className="card shadow-sm"> 
-                <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/people/${character.uid}.jpg`}
-                className="card-img-top" alt={character.name} style={{height: "100%", objectFit:"cover"}} /> 
+                <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/starships/${starship.uid}.jpg`}
+                className="card-img-top" alt={starship.name} style={{height: "100%", objectFit:"cover"}} /> 
                 <div className="card-body"> 
-                  <h4 className="card-text mb-3">{character.name}</h4>
+                  <h4 className="card-text mb-3">{starship.name}</h4>
                   <div className="d-flex justify-content-between align-items-center"> 
                     <div className="btn-group"> 
                       <button type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  

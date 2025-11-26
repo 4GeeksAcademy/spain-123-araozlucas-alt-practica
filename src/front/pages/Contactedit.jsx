@@ -13,19 +13,19 @@ export const Contactedit = () => {
         <h1 className="text-start mt-3 text-light display-6">Edit contact</h1>
         <form>
           <div className="mb-3">
-            <label for="exampleInputName" className="form-label">Full name</label>
+            <label htmlFor="exampleInputName" className="form-label">Full name</label>
             <input type="text" className="form-control" id="exampleInputName" placeholder="Full name"/>
           </div>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Email</label>
+            <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
             <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
           </div>
           <div className="mb-3">
-            <label for="exampleInputPhone" className="form-label">Phone</label>
+            <label htmlFor="exampleInputPhone" className="form-label">Phone</label>
             <input type="text" className="form-control" id="exampleInputPhone" placeholder="Enter phone"/>
           </div>
           <div className="mb-3">
-            <label for="exampleInputAddress" className="form-label">Address</label>
+            <label htmlFor="exampleInputAddress" className="form-label">Address</label>
             <input type="text" className="form-control" id="exampleInputAddress" placeholder="Enter address"/>
           </div>
         </form>
@@ -36,9 +36,9 @@ export const Contactedit = () => {
                 <p>or get back to homepage</p>
                 </Link>
             </div>
-            <div class="d-grid gap-2 d-md-flex">
-                <button class="btn btn-warning me-md-2" type="button">Save</button>
-                <button class="btn btn-secondary" type="button">Cancel</button>
+            <div className="d-grid gap-2 d-md-flex">
+                <button className="btn btn-warning me-md-2" type="button">Save</button>
+                <button className="btn btn-secondary" type="button">Cancel</button>
             </div>
           </div>
       </div>

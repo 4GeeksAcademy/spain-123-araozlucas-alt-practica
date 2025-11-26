@@ -8,7 +8,7 @@ export const Planets = () => {
   const { store, dispatch } = useGlobalReducer()
 
   const getPlanets = async() => {
-    const response = await fetch(`https://swapi.dev/api/planets`)
+    const response = await fetch(`https://swapi.tech/api/planets`)
     if (!response.ok) {
       console.log('Error', response.status, response.statusText);
       return
@@ -32,7 +32,8 @@ export const Planets = () => {
           {store.planets && store.planets.slice(0,9).map((planet,index) => (
           <div className="col">
               <div className="card shadow-sm"> 
-                <svg aria-label="Placeholder: Thumbnail" className="bd-placeholder-img card-img-top" height="225" preserveAspectRatio="xMidYMid slice" role="img" width="100%" xmlns="http://www.w3.org/2000/svg"><title>Placeholder</title><rect width="100%" height="100%" fill="#fc9700ff"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Characters</text></svg> 
+                <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/planets/${planet.uid}.jpg`}
+                className="card-img-top" alt={planet.name} style={{height: "100%", objectFit:"cover"}} />
                 <div className="card-body"> 
                   <h4 className="card-text mb-3">{planet.name}</h4>
                   <div className="d-flex justify-content-between align-items-center"> 

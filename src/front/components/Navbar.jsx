@@ -15,6 +15,9 @@ export const Navbar = () => {
 					<Link to="/characters">
 						<span className="d-inline-block align-text-center me-3 text-secondary">Characters</span>
 					</Link>
+					<Link to="/starships">
+						<span className="d-inline-block align-text-center me-3 text-secondary">Starships</span>
+					</Link>
 					<Link to="/planets">
 						<span className="d-inline-block align-text-center me-3 text-secondary">Planets</span>
 					</Link>
