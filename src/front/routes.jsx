@@ -13,6 +13,7 @@ import { Contactadd } from "./pages/Contactadd.jsx";
 import { Contactedit } from "./pages/Contactedit.jsx";
 import { Planets } from "./pages/Planets.jsx";
 import { Characters } from "./pages/Characters.jsx";
+import { Characterdetails } from "./pages/Characterdetails.jsx";
 import { Starships } from "./pages/Starships.jsx";
 import { Favorites } from "./pages/Favorites.jsx";
 import { Contactlist } from "./pages/Contactlist.jsx";
@@ -36,6 +37,7 @@ export const router = createBrowserRouter(
         <Route path="/contactedit" element={<Contactedit />} />
         <Route path="/planets" element={<Planets />} />
         <Route path="/characters" element={<Characters />} />
+        <Route path="/characterdetails/:theId" element={<Characterdetails />} />
         <Route path="/starships" element={<Starships />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/contactlist" element={<Contactlist />} />

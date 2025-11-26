@@ -177,7 +177,7 @@ export const Contactlist = () => {
               </div>
               <div className="d-grid gap-2 d-md-flex">
                   <button className="btn btn-warning me-md-2" type="submit">Save</button>
-                  <button className="btn btn-secondary" type="reset">Cancel</button>
+                  <button onClick={() => setView("list")} className="btn btn-secondary" type="reset">Cancel</button>
               </div>
             </div>
           </form>

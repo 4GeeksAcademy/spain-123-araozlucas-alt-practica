@@ -18,6 +18,11 @@ export const initialStore=()=>{
     characters: [],
     planets: [],
     starships: [],
+    currentCharacter: {
+      uid: "",
+      name: "",
+      url: "",
+    },
   };
 };
 
@@ -54,6 +59,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         starships: action.payload
+      };
+    
+    case 'setCurrentCharacter':
+      return {
+        ...store,
+        currentCharacter: action.payload
       };
 
     default:

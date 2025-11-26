@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 import { useEffect } from "react";
+import noImage from "../assets/img/StarWars.png";
 
 export const Starships = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
@@ -33,8 +34,11 @@ export const Starships = () => {
           {store.starships && store.starships.slice(0,9).map((starship,index) => (
             <div className="col">
               <div className="card shadow-sm"> 
-                <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/starships/${starship.uid}.jpg`}
-                className="card-img-top" alt={starship.name} style={{height: "100%", objectFit:"cover"}} /> 
+                <div style={{height:"250px", overflow:"hidden"}}>
+                  <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/starships/${starship.uid}.jpg`}
+                  onError={(e) => (e.target.src = noImage)}
+                  className="card-img-top" alt={starship.name} style={{height: "100%", objectFit:"cover", objectPosition:"center"}} /> 
+                </div>
                 <div className="card-body"> 
                   <h4 className="card-text mb-3">{starship.name}</h4>
                   <div className="d-flex justify-content-between align-items-center"> 

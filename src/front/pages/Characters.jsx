@@ -8,9 +8,17 @@ export const Characters = () => {
   const { store, dispatch } = useGlobalReducer()
   const navigate = useNavigate();
 
-  const handleDetails = () => {}
-
   const getCharacters = async() => {
+    const cached = localStorage.getItem("characters");
+    if (cached) {
+      console.log("Usando datos localStorage");
+      dispatch({
+        type: "setCharacters",
+        payload: JSON.parse(cached)
+      });
+      return;
+    }
+
     const response = await fetch(`https://swapi.tech/api/people`);
     if (!response.ok) {
       console.log('Error', response.status, response.statusText);
@@ -22,11 +30,23 @@ export const Characters = () => {
       type:"setCharacters",
       payload: data.results
     });
+    
+    localStorage.setItem("characters", JSON.stringify(data.results))
   };
 
   useEffect (() => {
     getCharacters()
   },[]);
+
+  const handleDetails = (character) => {
+    dispatch({
+      type: "setCurrentCharacter",
+      payload: character
+    });
+    
+    navigate(`/characterdetails/${character.uid}`)
+    
+  }
 
 
 
@@ -34,7 +54,7 @@ export const Characters = () => {
      <div className="container mt-3 bg-black">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {store.characters && store.characters.slice(0,9).map((character,index) => (
-            <div className="col">
+            <div className="col" key={character.uid}>
               <div className="card shadow-sm"> 
                 <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/people/${character.uid}.jpg`}
                 className="card-img-top" alt={character.name} style={{height: "100%", objectFit:"cover"}} /> 
@@ -42,7 +62,7 @@ export const Characters = () => {
                   <h4 className="card-text mb-3">{character.name}</h4>
                   <div className="d-flex justify-content-between align-items-center"> 
                     <div className="btn-group"> 
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  
+                      <button onClick={() => handleDetails(character)} type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  
                     </div> 
                     <button type="button" className="btn btn-sm btn-outline-warning"><i className="fa-regular fa-heart"></i></button> 
                   </div> 
