@@ -1,5 +1,5 @@
 // Import necessary components from react-router-dom and other parts of the application.
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 import { useEffect } from "react";
 import noImage from "../assets/img/StarWars.png";
@@ -7,6 +7,7 @@ import noImage from "../assets/img/StarWars.png";
 export const Starships = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
   const { store, dispatch } = useGlobalReducer()
+  const navigate = useNavigate()
 
   const getStarships = async() => {
     const response = await fetch(`https://swapi.tech/api/starships`);
@@ -26,6 +27,18 @@ export const Starships = () => {
     getStarships()
   },[]);
 
+  const handleDetails = (starship) => {
+    //1. Cambiar Store currentStarship (previo e)
+    dispatch({
+      type:'setCurrentStarship',
+      payload: starship
+    })
+    //2. Guardar datos LocalStorage
+    localStorage.setItem('currentStarship', JSON.stringify(starship))
+    //3. Navigate a la pagina
+    navigate(`/starshipdetails/${starship.uid}`)
+  }
+
 
 
   return (
@@ -43,7 +56,7 @@ export const Starships = () => {
                   <h4 className="card-text mb-3">{starship.name}</h4>
                   <div className="d-flex justify-content-between align-items-center"> 
                     <div className="btn-group"> 
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  
+                      <button onClick={()=> handleDetails(starship)} type="button" className="btn btn-sm btn-outline-secondary">Learn more</button>  
                     </div> 
                     <button type="button" className="btn btn-sm btn-outline-warning"><i className="fa-regular fa-heart"></i></button> 
                   </div> 

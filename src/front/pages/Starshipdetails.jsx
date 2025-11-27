@@ -1,29 +1,30 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useEffect, useState } from "react";
+import noImage from "../assets/img/StarWars.png";
 
-export const Planetdetails = props => {
-
-    const { store, dispatch} = useGlobalReducer()
-    const { theId } = useParams()
+export const Starshipdetails = props => {
+    
+    const { store } = useGlobalReducer()
+    const { theId} = useParams()
     const navigate = useNavigate()
 
-    const planetFromStore = store.currentPlanet;
-    const planet = store.currentPlanet?.uid
-        ? planetFromStore
-        : JSON.parse(localStorage.getItem('currentPlanet'));
+    const starshipFromStore = store.currentStarship;
+    const starship = store.currentStarship?.uid
+        ? starshipFromStore
+        : JSON.parse(localStorage.getItem('currentStarship'));
 
-    const [ details, setDetails ] = useState(null);
-    const [ date, setDate ] = useState();
+    const [ details, setDetails] = useState(null)
+    const [ date, setDate] = useState()
 
-    const planetInfo = async() => {
+    const starshipInfo = async() => {
         
-        if (details) return;
-        if ( !planet.name || !planet.uid) return;
+        if(details) return;
+        if (!starship.name || !starship.uid) return;
 
-        const url = planet.url || `https://swapi.tech/api/planets/${planet.uid}`
+        const url = starship.url || `https://swapi.tech/api/planets/${starship.uid}`
 
-        const cachedDetails = localStorage.getItem(`planetDetails_${theId}`);
+        const cachedDetails = localStorage.getItem(`starshipDetails_${theId}`);
         if (cachedDetails) {
             console.log("Usando datos cache");
             const parsed = JSON.parse(cachedDetails);
@@ -32,24 +33,24 @@ export const Planetdetails = props => {
             return;
         }
 
-        const response = await fetch (planet.url);
+        const response = await fetch (starship.url)
         if (!response.ok) {
             console.log('Error', response.status, response.statusText);
             return
         }
-        const data  = await response.json()
+        const data = await response.json()
         console.log(data.result.properties);
         setDetails(data.result.properties);
         setDate(data.result.properties.edited);
-        localStorage.setItem(`planetDetails_${theId}`,JSON.stringify(data.result.properties));
+        localStorage.setItem(`starshipDetails_${theId}`,JSON.stringify(data.result.properties));
     }
-
+    
     useEffect (() => {
         setDetails();
-        planetInfo()
-    },[theId])
+        starshipInfo()
+    },[theId]);
 
-    if ( !planet || !planet.uid) {
+    if ( !starship || !starship.uid) {
         return <h2 className="text-light text-center mt-5">Loading character...</h2>;
     }
 
@@ -71,9 +72,9 @@ export const Planetdetails = props => {
         dateFormatted.getDate().toString().padStart(2, '0') + '/' +
         (dateFormatted.getMonth() + 1).toString().padStart(2, '0') + '/' +
         dateFormatted.getFullYear();
-
+    
     const handleBack = () => {
-        navigate(`/planets`);
+        navigate(`/starships`)
     }
 
     return (
@@ -83,25 +84,26 @@ export const Planetdetails = props => {
                     <div className="row g-0">
                         <div className="col-md-4">
                             <img 
-                                src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/planets/${planet.uid}.jpg`}
-                                className="img-fluid rounded-start" alt={planet.name} style={{ objectFit: "cover", height: "100%" }}
+                                src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/starships/${starship.uid}.jpg`}
+                                onError={(e) => (e.target.src = noImage)} className="img-fluid rounded-start" alt={starship.name} style={{ objectFit: "cover", height: "100%" }}
                             />
                         </div>
 
                         <div className="col-md-8">
                             <div className="card-body me-5">
-                                <h1 className="card-title text-warning mt-5 mb-5">{planet.name}</h1>
+                                <h1 className="card-title text-warning mt-5 mb-5">{starship.name}</h1>
 
-                                <p>Orbital Period: {details.orbital_period} days</p>
-                                <p>Rotational Period: {details.rotation_period} hours</p>
+                                <p>{details.model}</p>
+                                <p>{details.manufacturer}</p>
+                                <p>{details.starship_class}</p>
                               
                                 <h5 className="card-title text-secondary mt-5">Attributes</h5>
                                 <ul className="list-group list-group-flush">
-                                    <li className="list-group-item bg-black text-light">Diameter: {details.diameter} km</li>
-                                    <li className="list-group-item bg-black text-light">Gravity: {details.gravity}</li>
-                                    <li className="list-group-item bg-black text-light">Climate: {details.climate}</li>
-                                    <li className="list-group-item bg-black text-light">Surface Water: {details.surface_water}</li>
-                                    <li className="list-group-item bg-black text-light">Terrain: {details.terrain}</li>
+                                    <li className="list-group-item bg-black text-light">Crew: {details.crew}</li>
+                                    <li className="list-group-item bg-black text-light">Passengers: {details.passengers}</li>
+                                    <li className="list-group-item bg-black text-light">Length: {details.length}</li>
+                                    <li className="list-group-item bg-black text-light">Consumables: {details.consumables} km</li>
+                                    <li className="list-group-item bg-black text-light">Cargo Capacity: {details.cargo_capacity}</li>
                                 </ul>
 
                                 <p className="mt-4 text-secondary text-end">
@@ -118,6 +120,6 @@ export const Planetdetails = props => {
                 </div>
 
             </div>
-        </div>  
+        </div>
     );
 }

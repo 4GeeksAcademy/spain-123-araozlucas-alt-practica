@@ -28,6 +28,8 @@ export const Contactlist = () => {
   const [ isAdd, setIsAdd ] = useState(false);
   const [ view, setView ] = useState("list");
 
+  const [ contactToDelete, setContactToDelete ] = useState('');
+
   const handleNewContact = (e) => {
     const { name, value } = e.target;
     setNewContact((prev) => ({
@@ -51,9 +53,7 @@ export const Contactlist = () => {
       console.log('Error', response.status, response.statusText);
       return
     }
-    console.log("Contacto ELIMINADO correctamente");
-    const data = await response.json();
-    console.log(data);
+    console.log("Contacto ELIMINADO correctamente");  
     getContacts()
     
    }
@@ -155,30 +155,23 @@ export const Contactlist = () => {
 
   const ensureAgenda = async () => {
     try {
-      const res = await fetch (`${url}/agendas/${user}`)
+      const res = await fetch (`${url}/agendas/${user}`);
+
       if (res.status === 404) {
-        console.log("Agenda no existe. Creandola...");
         const createRes = await fetch (`${url}/agendas/${user}`, {method: 'POST'});
-        if (!createRes.ok) {
-          console.log('Error creaando agenda:', createRes.statusText);
-          return false;
+        if (!createRes.ok) return false 
         }
-        console.log('Agenda creada correctamente');
-      } else {
-        console.log('Agenda ya existe');
-      }
-      return true;
+        return true
       } catch (error) {
         console.error('Error revisando agenda', error);
         return false
       }
-    }
+    };
   
   const getContacts = async() => {
-    const agendaReady = await ensureAgenda();
-    if (!agendaReady) return;
+    const ready = await ensureAgenda();
+    if (!ready) return;
 
-    console.log("Loading contacts...");
     const response = await fetch (`${url}/agendas/${user}/contacts`)
     if (!response.ok) {
       console.log('Error', response.status, response.statusText);
@@ -303,12 +296,48 @@ export const Contactlist = () => {
                 </div>
                 <div className="col-md-3 d-flex align-items-start justify-content-between mt-4 mb-3">
                   <button onClick={() => handleEdit(contacts)} className="btn btn-secondary mb-3"><i className="fa-solid fa-pencil"></i></button>
-                  <button onClick={() => handleDelete(contacts)} className="btn btn-secondary mb-3 me-3 bg-danger"><i className="fa-solid fa-trash"></i></button>
+                  <button onClick={() => setContactToDelete(contacts)} 
+                    className="btn btn-secondary mb-3 me-3 bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                  ><i className="fa-solid fa-trash"></i></button>
                 </div>
               </div>
             </div>
             )
           })}
+          
+          <div className="modal fade" 
+              id="deleteModal" 
+              tabindex="-1" 
+              aria-labelledby="deleteModalLabel" 
+              aria-hidden="true"
+            >
+            <div className="modal-dialog">
+              <div className="modal-content bg-dark text-light border-secondary">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="deleteModalLabel">Confirm delete</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div className="modal-body">
+                  {contactToDelete ? (
+                    <p>Delete{" "}<strong>{contactToDelete.name}</strong>, are you sure you want?</p>
+                    ):
+                    (<p>Loading...</p>
+                  )}
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-warning"
+                    data-bs-dismiss="modal"
+                    onClick={()=> handleDelete(contactToDelete)}
+                  >Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
       
           <Link to="/" className="text-light">
           <p>or get back to homepage</p>
