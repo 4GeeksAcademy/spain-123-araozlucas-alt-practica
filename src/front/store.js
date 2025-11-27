@@ -23,6 +23,11 @@ export const initialStore=()=>{
       name: "",
       url: "",
     },
+    currentPlanet: {
+      uid: "",
+      name: "",
+      url: "",
+    },
     characterDetails: [],
   };
 };
@@ -66,6 +71,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         currentCharacter: action.payload
+      };
+
+    case 'setCurrentPlanet':
+      return {
+        ...store,
+        currentPlanet: action.payload
       };
 
     case 'setCharacterDetails':

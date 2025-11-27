@@ -66,7 +66,14 @@ export const Characterdetails = props => {
     }
 
     if (!details) {
-        return <h2 className="text-light text-center mt-5">Loading details...</h2>;
+        return (
+        <div className="d-flex align-items-center justify-content-center mt-5 mb-5">
+            <div className="spinner-border text-warning me-5" role="status">
+                <span className="visually-hidden"></span>
+            </div>
+            <h2 className="text-light text-center mt-1">Loading details...</h2>;
+        </div>
+        )
     }
     
     const iso = date
@@ -124,8 +131,6 @@ export const Characterdetails = props => {
             </div>
 
         </div>
-    </div>
-        
-        
+    </div>  
     )
 }
