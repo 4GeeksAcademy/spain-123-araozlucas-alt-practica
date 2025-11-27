@@ -43,7 +43,7 @@ export const Characters = () => {
       type: "setCurrentCharacter",
       payload: character
     });
-    
+    localStorage.setItem("currentCharacter", JSON.stringify(character));
     navigate(`/characterdetails/${character.uid}`)
     
   }

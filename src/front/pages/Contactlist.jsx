@@ -16,10 +16,14 @@ export const Contactlist = () => {
                                                   email: '',
                                                   address: '',
   });
-  const [ editContact, setEditContact ] = useState('');
+  const [ editContact, setEditContact ] = useState({name: '',
+                                                  phone: '',
+                                                  email: '',
+                                                  address: '',
+  });
 
   const [ allContacts, setAllContacts ] = useState([]);
-  const [ editAllContact, setEditAllContacts ] = useState({});
+  const [ editAllContacts, setEditAllContacts ] = useState({});
   const [ isEdit, setIsEdit ] = useState(false);
   const [ isAdd, setIsAdd ] = useState(false);
   const [ view, setView ] = useState("list");
@@ -30,16 +34,37 @@ export const Contactlist = () => {
       ...prev, [name]: value
     }));
     };
-  const handleEditContact = (event) => {setEditContact(event.target.value)}
 
+  const handleEditContact = (e) => {
+    const { name, value } = e.target;
+    setEditContact((prev) => ({
+      ...prev, [name]: value
+    }));
+    };
 
-  const handleDelete = () => {
-    console.log("Delete click");
+  const handleDelete = async(deleteContact) => {
+    const uri = `${url}/agendas/${user}/contacts/${deleteContact.id}`;
+    const options = {
+      method: 'DELETE'};
+    const response = await fetch (uri, options);
+    if(!response.ok) {
+      console.log('Error', response.status, response.statusText);
+      return
+    }
+    console.log("Contacto ELIMINADO correctamente");
+    const data = await response.json();
+    console.log(data);
+    getContacts()
+    
    }
 
-  const handleEdit = () => {
+  const handleEdit = (item) => {
+    setEditAllContacts(item)
+    setEditContact (item)
     setView("edit");
+    console.log('Editando:', item);
   }
+
   const handleAdd = () => {
     setView("add");
   }
@@ -73,7 +98,7 @@ export const Contactlist = () => {
       console.log('Error', response.status, response.statusText);
       return
     }
-    console.log("Contacto creado correctamente");
+    console.log("Contacto CREADO correctamente");
     
     const data = await response.json()
     console.log(data);
@@ -87,20 +112,81 @@ export const Contactlist = () => {
     setView("list");
   }
 
-  const handleSubmitEdit = (e) => {
-    e.preventDefault()
+  const handleSubmitEdit = async (event) => {
+    event.preventDefault()
+    const dataToSend = {
+      name: editContact.name,
+      phone: editContact.phone,
+      email: editContact.email,
+      address: editContact.address
+    }
+
+    if ( !editContact.name || !editContact.phone || !editContact.email || !editContact.address ) {
+      console.log('Faltan datos');
+      return
+    }
+
+    const uri = `${url}/agendas/${user}/contacts/${editAllContacts.id}`;
+    const options = {
+      method: 'PUT',
+      headers: {
+        "Content-type": 'application/json'
+      },
+      body: JSON.stringify(dataToSend)
+      }
+
+    const response = await fetch (uri, options)
+    if (!response.ok) {
+      console.log('Error', response.status, response.statusText);
+      return
+    }
+    console.log("Contacto EDITADO correctamente");
+    const data = await response.json()
+    console.log(data);
+
+    setEditContact({name: '',
+                    phone: '',
+                    email: '',
+                    address: '',
+    })
+    getContacts()
     setView("list");
   }
 
+  const ensureAgenda = async () => {
+    try {
+      const res = await fetch (`${url}/agendas/${user}`)
+      if (res.status === 404) {
+        console.log("Agenda no existe. Creandola...");
+        const createRes = await fetch (`${url}/agendas/${user}`, {method: 'POST'});
+        if (!createRes.ok) {
+          console.log('Error creaando agenda:', createRes.statusText);
+          return false;
+        }
+        console.log('Agenda creada correctamente');
+      } else {
+        console.log('Agenda ya existe');
+      }
+      return true;
+      } catch (error) {
+        console.error('Error revisando agenda', error);
+        return false
+      }
+    }
+  
   const getContacts = async() => {
+    const agendaReady = await ensureAgenda();
+    if (!agendaReady) return;
+
+    console.log("Loading contacts...");
     const response = await fetch (`${url}/agendas/${user}/contacts`)
     if (!response.ok) {
       console.log('Error', response.status, response.statusText);
       return
     }
     const data = await response.json()
-    console.log(data);
-    setAllContacts(data.contacts)
+    console.log('Contactos:',data.contacts);
+    setAllContacts(data.contacts || [])
   }
 
   useEffect (() => {
@@ -155,19 +241,23 @@ export const Contactlist = () => {
           <form onSubmit={handleSubmitEdit}>
             <div className="mb-3">
               <label htmlFor="exampleInputName" className="form-label">Full name</label>
-              <input type="text" className="form-control" id="exampleInputName" placeholder="Full name"/>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-              <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPhone" className="form-label">Phone</label>
-              <input type="text" className="form-control" id="exampleInputPhone" placeholder="Enter phone"/>
+              <input type="text" className="form-control" id="exampleInputName" name="name" placeholder="Full name"
+              value={editContact.name} onChange={handleEditContact} />
             </div>
             <div className="mb-3">
               <label htmlFor="exampleInputAddress" className="form-label">Address</label>
-              <input type="text" className="form-control" id="exampleInputAddress" placeholder="Enter address"/>
+              <input type="text" className="form-control" id="exampleInputAddress" name="address" placeholder="Enter address"
+              value={editContact.address} onChange={handleEditContact} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputPhone" className="form-label">Phone</label>
+              <input type="text" className="form-control" id="exampleInputPhone" name="phone" placeholder="Enter phone"
+              value={editContact.phone} onChange={handleEditContact} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+              <input type="email" className="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email"
+              value={editContact.email} onChange={handleEditContact} />
             </div>
             <div className="d-flex justify-content-between">
               <div>
@@ -212,8 +302,8 @@ export const Contactlist = () => {
                   </div>
                 </div>
                 <div className="col-md-3 d-flex align-items-start justify-content-between mt-4 mb-3">
-                  <button onClick={handleEdit} className="btn btn-secondary mb-3"><i className="fa-solid fa-pencil"></i></button>
-                  <button className="btn btn-secondary mb-3 me-3 bg-danger"><i className="fa-solid fa-trash"></i></button>
+                  <button onClick={() => handleEdit(contacts)} className="btn btn-secondary mb-3"><i className="fa-solid fa-pencil"></i></button>
+                  <button onClick={() => handleDelete(contacts)} className="btn btn-secondary mb-3 me-3 bg-danger"><i className="fa-solid fa-trash"></i></button>
                 </div>
               </div>
             </div>

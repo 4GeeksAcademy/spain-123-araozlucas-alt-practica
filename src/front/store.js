@@ -23,6 +23,7 @@ export const initialStore=()=>{
       name: "",
       url: "",
     },
+    characterDetails: [],
   };
 };
 
@@ -66,6 +67,12 @@ export default function storeReducer(store, action = {}) {
         ...store,
         currentCharacter: action.payload
       };
+
+    case 'setCharacterDetails':
+      return {
+        ...store,
+        characterDetails: action.payload
+      }
 
     default:
       throw Error('Unknown action.');
