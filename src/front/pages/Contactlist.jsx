@@ -181,6 +181,12 @@ export const Contactlist = () => {
     console.log('Contactos:',data.contacts);
     setAllContacts(data.contacts || [])
   }
+  
+  useEffect(()=> {
+    if (allContacts.length === 0 ) {
+    setView("add");
+    }
+  },[allContacts]);
 
   useEffect (() => {
     getContacts()
@@ -273,7 +279,7 @@ export const Contactlist = () => {
           <div className="d-flex align-items-center justify-content-between">
             <h1 className="text-start text-light display-5">Contacts</h1>
             <div>
-              <button onClick={handleAdd} type="button" className="btn btn-secondary mb-3">New User</button>
+              <button onClick={handleAdd} type="button" className="btn btn-secondary mb-3">New Contact</button>
             </div>
           </div>
           
