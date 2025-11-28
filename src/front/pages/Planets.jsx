@@ -43,7 +43,7 @@ export const Planets = () => {
       <div className="container mt-3 bg-black">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {store.planets && store.planets.slice(0,9).map((planet,index) => (
-          <div className="col">
+          <div className="col" key={planet.uid}>
               <div className="card shadow-sm"> 
                 <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/planets/${planet.uid}.jpg`}
                 className="card-img-top" alt={planet.name} style={{height: "100%", objectFit:"cover"}} />

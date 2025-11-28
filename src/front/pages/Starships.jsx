@@ -45,7 +45,7 @@ export const Starships = () => {
      <div className="container mt-3 bg-black">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {store.starships && store.starships.slice(0,9).map((starship,index) => (
-            <div className="col">
+            <div className="col" key={starship.uid}>
               <div className="card shadow-sm"> 
                 <div style={{height:"250px", overflow:"hidden"}}>
                   <img src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/refs/heads/master/public/images/starships/${starship.uid}.jpg`}

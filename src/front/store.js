@@ -36,6 +36,7 @@ export const initialStore=()=>{
     characterDetails: [],
     planetDetails: [],
     starshipDetails: [],
+    user: "lucas",
   };
 };
 
@@ -108,6 +109,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         starshipDetails: action.payload
+      }
+
+    case 'setUser':
+      return {
+        ...store,
+        user: action.payload
       }
 
     default:

@@ -9,7 +9,7 @@ export const Contactlist = () => {
   const { store, dispatch } = useGlobalReducer()
 
   const url = 'https://playground.4geeks.com/contact';
-  const user = 'lucas';
+  const user = store.user;
 
   const [ newContact, setNewContact ] = useState({name: '',
                                                   phone: '',
@@ -27,6 +27,7 @@ export const Contactlist = () => {
   const [ isEdit, setIsEdit ] = useState(false);
   const [ isAdd, setIsAdd ] = useState(false);
   const [ view, setView ] = useState("list");
+  const [ loaded, setLoaded ] = useState(false)
 
   const [ contactToDelete, setContactToDelete ] = useState('');
 
@@ -180,13 +181,16 @@ export const Contactlist = () => {
     const data = await response.json()
     console.log('Contactos:',data.contacts);
     setAllContacts(data.contacts || [])
+    setLoaded(true)
   }
   
   useEffect(()=> {
-    if (allContacts.length === 0 ) {
+    if (loaded && allContacts.length === 0 ) {
     setView("add");
+    } else if (loaded && allContacts.length > 0) {
+    setView("list");
     }
-  },[allContacts]);
+  },[loaded, allContacts]);
 
   useEffect (() => {
     getContacts()
